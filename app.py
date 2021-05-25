@@ -17,16 +17,17 @@ def bad_request():
 
 def run_prediction(model, query):
     if query is None:
-        raise ValueError('GET-query is empty')
+        print('ERROR: GET-query is empty')
 
     try:
         pred, proba = infer(model, query)
         return pred, proba
-    except:
+    except Exception as e:
+        print(e)
         print('Model error')
 
 
-@app.route('/model/test_api_external', methods=['GET'])
+@app.route('/model/test_api_external', methods=['POST'])
 def hello_world():
     print('request received')
     query = None
@@ -35,7 +36,8 @@ def hello_world():
         content = request.get_json()
         query = content['query']
         print('Data OK')
-    except:
+    except Exception as e:
+        print(e)
         print('Data error')
 
     pred, proba = run_prediction(model, query)
