@@ -1,4 +1,4 @@
-import configs, train_model
+from deeppavlov import configs, train_model
 from deeppavlov.core.common.file import read_json
 import json
 import os
