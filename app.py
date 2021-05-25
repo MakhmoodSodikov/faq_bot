@@ -4,6 +4,7 @@ app = Flask(__name__)
 
 model = load()
 
+
 @app.route('/')
 def check_is_running():
     return 'Application is running'
@@ -15,9 +16,12 @@ def bad_request():
 
 
 def run_prediction(model, query):
+    if query is None:
+        raise ValueError('GET-query is empty')
+
     try:
-        content = infer(model, query)
-        return content
+        pred, proba = infer(model, query)
+        return pred, proba
     except:
         print('Model error')
 
@@ -25,6 +29,7 @@ def run_prediction(model, query):
 @app.route('/model/test_api_external', methods=['GET'])
 def hello_world():
     print('request received')
+    query = None
 
     try:
         content = request.get_json()
@@ -33,8 +38,8 @@ def hello_world():
     except:
         print('Data error')
 
-    output = run_prediction(model, query)
-    output = {'answer': output}
+    pred, proba = run_prediction(model, query)
+    output = {'answer': pred, 'proba': proba}
     return jsonify(output)
 
 

@@ -1,6 +1,4 @@
-from deeppavlov import configs, train_model
-from deeppavlov.core.common.file import read_json
-from deeppavlov import configs, train_model
+from deeppavlov import train_model
 from deeppavlov.core.common.file import read_json
 import json
 import os
@@ -11,7 +9,7 @@ def train(config_path='model_config.json'):
 
     model_config = read_json(config_path)
 
-    model = train_model(model_config)
+    train_model(model_config)
     save(model_config, config_path)
 
 
