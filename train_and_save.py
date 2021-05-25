@@ -4,7 +4,7 @@ import json
 import os
 
 
-def train(data='wiki_train.csv', save_path='model_config.json'):
+def train(data='tezro_data.csv', save_path='model_config.json'):
     os.environ["CUDA_VISIBLE_DEVICES"] = "3"
     model_config = read_json(configs.faq.tfidf_logreg_en_faq)
     model_config['dataset_reader']['data_path'] = data
