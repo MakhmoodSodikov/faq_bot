@@ -20,7 +20,7 @@ def train():
     valid_data = json.load(open("/home/sodikov_mmo/faq_bot/downloads/intent_catcher_data/valid.json"))
 
     intent_model_config = json.load(open(configs['intent_catcher']['intent_catcher']))
-    intent_model_config['metadata']['variables']['ROOT_PATH'] = '/Users/makhmood/PycharmProjects/faq_bot'
+    intent_model_config['metadata']['variables']['ROOT_PATH'] = '/home/sodikov_mmo/faq_bot'
     intent_model_config['chainer']['pipe'][1]['number_of_intents'] = len(train_data.keys())
     intent_model_config['train']['epochs'] = 40
     intent_model = train_model(intent_model_config)
