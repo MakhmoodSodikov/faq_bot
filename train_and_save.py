@@ -1,16 +1,30 @@
-from deeppavlov import train_model
-from deeppavlov.core.common.file import read_json
 import json
 import os
 
+from deeppavlov.core.common.file import read_json
+from deeppavlov import configs, train_model
 
-def train(config_path='model_config.json'):
+
+def train():
+    pred_config_path = 'pred_model_config.json'
+
     os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
-    model_config = read_json(config_path)
+    pred_model_config = read_json(pred_config_path)
 
-    train_model(model_config)
-    save(model_config, config_path)
+    train_model(pred_model_config)
+    save(pred_model_config, pred_config_path)
+
+    train_data = json.load(open("/Users/makhmood/PycharmProjects/faq_bot/downloads/intent_catcher_data/train.json"))
+    test_data = json.load(open("/Users/makhmood/PycharmProjects/faq_bot/downloads/intent_catcher_data/test.json"))
+    valid_data = json.load(open("/Users/makhmood/PycharmProjects/faq_bot/downloads/intent_catcher_data/valid.json"))
+
+    intent_model_config = json.load(open(configs['intent_catcher']['intent_catcher']))
+    intent_model_config['metadata']['variables']['ROOT_PATH'] = '/Users/makhmood/PycharmProjects/faq_bot'
+    intent_model_config['chainer']['pipe'][1]['number_of_intents'] = len(train_data.keys())
+    intent_model_config['train']['epochs'] = 40
+    intent_model = train_model(intent_model_config)
+    save(intent_model_config, 'intent_model_config.json')
 
 
 def save(model_config, save_path):

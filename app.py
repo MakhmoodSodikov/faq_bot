@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, abort, redirect, url_for, flash
 from model import load, infer
 app = Flask(__name__)
 
-model = load()
+prediction_model, intent_model = load()
 
 
 @app.route('/')
@@ -15,13 +15,18 @@ def bad_request():
     return abort(400)
 
 
-def run_prediction(model, query):
+@app.route('/update')
+def bad_request():
+    return abort(400)
+
+
+def run_prediction(prediction_model, intent_model, query):
     if query is None:
         print('ERROR: GET-query is empty')
 
     try:
-        pred, proba = infer(model, query)
-        return pred, proba
+        pred, proba, intent = infer(prediction_model, intent_model, query)
+        return pred, proba, intent
     except Exception as e:
         print(e)
         print('Model error')
@@ -40,8 +45,10 @@ def hello_world():
         print(e)
         print('Data error')
 
-    pred, proba = run_prediction(model, query)
-    output = {'answer': pred, 'proba': proba}
+    pred, proba, intent = run_prediction(prediction_model,
+                                         intent_model,
+                                         query)
+    output = {'answer': pred, 'proba': proba, 'intent': intent}
     return jsonify(output)
 
 
