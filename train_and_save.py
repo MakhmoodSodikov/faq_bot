@@ -7,6 +7,7 @@ from deeppavlov import configs, train_model
 
 def train():
     pred_config_path = 'pred_model_config.json'
+    intent_config_path = 'intent_model_config.json'
 
     os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
@@ -22,9 +23,9 @@ def train():
     intent_model_config = json.load(open(configs['intent_catcher']['intent_catcher']))
     intent_model_config['metadata']['variables']['ROOT_PATH'] = '/home/sodikov_mmo/faq_bot'
     intent_model_config['chainer']['pipe'][1]['number_of_intents'] = len(train_data.keys())
-    intent_model_config['train']['epochs'] = 40
+    intent_model_config['train']['epochs'] = 2
     intent_model = train_model(intent_model_config)
-    save(intent_model_config, 'intent_model_config.json')
+    save(intent_model_config, intent_config_path)
 
 
 def save(model_config, save_path):
