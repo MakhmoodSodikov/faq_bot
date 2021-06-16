@@ -15,11 +15,6 @@ def bad_request():
     return abort(400)
 
 
-@app.route('/update')
-def bad_request():
-    return abort(400)
-
-
 def run_prediction(prediction_model, intent_model, query):
     if query is None:
         print('ERROR: GET-query is empty')
