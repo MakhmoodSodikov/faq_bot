@@ -16,9 +16,9 @@ def train():
     train_model(pred_model_config)
     save(pred_model_config, pred_config_path)
 
-    train_data = json.load(open("/home/sodikov_mmo/faq_bot/downloads/intent_catcher_data/train.json"))
-    test_data = json.load(open("/home/sodikov_mmo/faq_bot/downloads/intent_catcher_data/test.json"))
-    valid_data = json.load(open("/home/sodikov_mmo/faq_bot/downloads/intent_catcher_data/valid.json"))
+    train_data = read_json("/home/sodikov_mmo/faq_bot/downloads/intent_catcher_data/train.json")
+    test_data = read_json("/home/sodikov_mmo/faq_bot/downloads/intent_catcher_data/test.json")
+    valid_data = read_json("/home/sodikov_mmo/faq_bot/downloads/intent_catcher_data/valid.json")
 
     intent_model_config = json.load(open(configs['intent_catcher']['intent_catcher']))
     intent_model_config['metadata']['variables']['ROOT_PATH'] = '/home/sodikov_mmo/faq_bot'
