@@ -10,6 +10,6 @@ def infer(prediction_model, intent_model, query):
 
 
 def load(prediction_model_config_path='pred_model_config.json',
-         intent_model_config_path='pred_model_config.json'):
+         intent_model_config_path='intent_model_config.json'):
     return build_model(prediction_model_config_path), \
            build_model(intent_model_config_path)
