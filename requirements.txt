@@ -2,6 +2,3 @@ deeppavlov
 gunicorn
 flask
 spacy==2.2.3
-xeger
-
-python3 -m deeppavlov install intent_catcher
