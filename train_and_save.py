@@ -26,9 +26,9 @@ def train():
     intent_model_config['metadata']['variables']['ROOT_PATH'] = '/home/sodikov_mmo/faq_bot'
     intent_model_config['chainer']['pipe'][1]['number_of_intents'] = len(train_data.keys())
     intent_model_config['train']['epochs'] = 2
-    print(intent_model_config)
+    # print(intent_model_config)
     intent_model = train_model(intent_model_config)
-    save(intent_model_config, intent_config_path)
+    # save(intent_model_config, intent_config_path)
 
 
 def save(model_config, save_path):
